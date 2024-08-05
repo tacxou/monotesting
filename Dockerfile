@@ -1,5 +1,7 @@
 FROM mono:latest
 
+MAINTAINER Pterodactyl Software, <support@pterodactyl.io>
+
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
     libc6 \
@@ -12,3 +14,10 @@ RUN apt-get update \
     libgdiplus \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+RUN adduser -D -h /home/container container
+
+USER container
+ENV  USER=container HOME=/home/container
+
+WORKDIR /home/container
